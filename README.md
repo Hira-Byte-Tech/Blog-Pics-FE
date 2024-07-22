@@ -1,75 +1,62 @@
-# Nuxt 3 Minimal Starter
+# Nuxt Image Gallery
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Description
 
-## Setup
+NSFW images
 
-Make sure to install the dependencies:
+## Technologies Used
 
-```bash
-# npm
-npm install
+- **Nuxt.js**: Framework for building Vue.js applications.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **Bun**: Ultra-fast JavaScript runtime and package manager.
 
-# pnpm
-pnpm install
+## Project Setup
 
-# yarn
-yarn install
+### Prerequisites
 
-# bun
-bun install
+- Node.js (for development environment)
+- Bun (for package management)
+
+### Installation
+
+1. **Clone the repository**
+2. **Install dependencies:**
+
+   ```sh
+   bun install
+   ```
+
+3. **Run the development server:**
+
+   ```sh
+   bun run dev
+   ```
+
+4. **Build for production:**
+
+   ```sh
+   bun run build
+   ```
+
+## Directory Structure
+
+```sh
+├── assets
+│   └── images          # Image files
+├── components
+│   └── Components.vue  # Component
+├── layouts
+│   └── default.vue     # Default layout
+├── pages
+│   └── Homepage.vue    # Home page
+├── static
+│   └── favicon.ico     # Favicon
+├── store
+│   └── index.js        # Pinia store
+├── constant
+│   └── endpoint.js     # Vuex store
+├── utils
+│   └── convertDate.js  # Vuex store
+├── nuxt.config.js      # Nuxt configuration file
+└── tailwind.config.js  # Tailwind CSS configuration
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
