@@ -1,3 +1,8 @@
+- primary color: bg-rose-500
+
+
+
+
 ## Public Routes
 
 ### POST /auth/register
