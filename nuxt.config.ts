@@ -10,6 +10,20 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
+  hooks: {
+    'pages:extend'(pages) {
+      pages.push(
+        {
+          name: 'login',
+          path: '/login',
+          file: '~/pages/auth/Login.vue'
+        },
+        {
+          name: 'signup',
+          path: '/signup',
+          file: '~/pages/auth/Signup.vue'
+        })
+    }
+  },
   modules: ["@nuxt/icon"]
 })

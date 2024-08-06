@@ -31,24 +31,31 @@
                             <!-- <nuxt-link to="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                                 aria-current="page">Homepage</nuxt-link> -->
                             <nuxt-link to="/"
-                                class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:    bg-gray-700 hover:text-white">
+                                class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                                 Home
                                 <Icon name="ic:round-home" size="large" />
                             </nuxt-link>
-
+                            <nuxt-link to="/random"
+                                class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                                Random
+                                <Icon name="gg:dice-5" size="large" />
+                            </nuxt-link>
                             <nuxt-link to="/tags"
                                 class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                                 Tags
                                 <Icon name="material-symbols:label" size="large" />
                             </nuxt-link>
 
-                            <nuxt-link to="/tags"
+                            <nuxt-link to="/characters"
                                 class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                                 Characters
                                 <Icon name="ion:people-sharp" size="large" />
                             </nuxt-link>
-                            <a href="#"
-                                class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Series</a>
+                            <nuxt-link to="/series"
+                                class="rounded-md flex flex-row items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                                Series
+                                <Icon name="ri:film-line" size="large" />
+                            </nuxt-link>
                         </div>
                     </div>
                 </div>
@@ -66,12 +73,12 @@
                     </button> -->
 
                     <div class="flex flex-row relative ml-3">
-                        <nuxt-link to="/tags"
+                        <nuxt-link to="/login"
                             class="rounded-md flex flex-row gap-1 items-center px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                             Login
                             <Icon name="material-symbols:person" size="large" />
                         </nuxt-link>
-                        <nuxt-link to="/tags"
+                        <nuxt-link to="/signup" active-class="text-blue-600"
                             class="rounded-md flex flex-row gap-1 items-center px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                             Sign up
                             <Icon name="ic:baseline-log-in" size="large" />
@@ -102,4 +109,9 @@
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.router-link-active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity))
+}
+</style>
