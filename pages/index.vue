@@ -7,6 +7,7 @@
                 </EachPost>
             </div>
             <div>{{ pageNumber }}</div>
+
             <Pagination v-model="pageNumber" :length="20"></Pagination>
         </div>
     </div>
@@ -15,7 +16,16 @@
 <script setup>
 import Pagination from '~/components/Common/Pagination.vue';
 import EachPost from '~/components/Common/EachPost.vue';
+const config = useRuntimeConfig();
+const env = config.public.TEST_ENV;
 const pageNumber = ref(1)
+
+onMounted(() => {
+    console.log(env);
+
+})
+
+
 definePageMeta({
     layout: 'default'
 })

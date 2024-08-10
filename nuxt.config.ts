@@ -10,6 +10,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      TEST_ENV: process.env.TEST_ENV
+    }
+  },
   hooks: {
     'pages:extend'(pages) {
       pages.push(
