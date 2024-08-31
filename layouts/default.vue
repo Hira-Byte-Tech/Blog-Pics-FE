@@ -4,6 +4,7 @@
         <slot />
         <Footer> </Footer>
     </div>
+    <UNotifications />
 </template>
 
 <script setup>

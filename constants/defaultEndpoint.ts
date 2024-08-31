@@ -1,4 +1,4 @@
-export const BASE_URL = '.....';
+export const BASE_URL = 'https://upward-chicken-talented.ngrok-free.app/api/v1';
 
 // Public routes
 export const REGISTER = '/auth/register';
