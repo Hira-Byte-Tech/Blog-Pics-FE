@@ -9,7 +9,7 @@
               v-for="tag in tags" 
               :key="tag" 
               @click="filterByTag(tag)" 
-              :class="['cursor-pointer rounded-lg py-2 px-4 text-xs font-bold uppercase', selectedTag === tag ? 'bg-green-500 text-white' : 'bg-rose-700 text-white']"
+              :class="['cursor-pointer rounded-lg py-2 px-4 text-xs font-bold uppercase', selectedTag === tag ? 'bg-rose-500 text-white' : 'bg-rose-700 text-white']"
               class="transition-colors duration-200"
             >
               #{{ tag }}

@@ -27,7 +27,13 @@ export default defineNuxtConfig({
           name: 'signup',
           path: '/signup',
           file: '~/pages/auth/Signup.vue'
-        })
+        },
+        {
+          name: 'forgot-password',
+          path: '/forgot-password',
+          file: '~/pages/auth/forgot-password.vue'
+        }
+      )
     }
   },
   modules: ["@nuxt/icon", '@nuxt/ui']
