@@ -10,30 +10,55 @@
 
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-10">
-            <!-- Create Post Form -->
-            <section class="bg-gray-800 rounded-lg shadow p-8 mb-10">
-                <h2 class="text-3xl font-semibold mb-6 text-rose-400">Create a New Post</h2>
-                <form @submit.prevent="submitPost">
-                    <div class="mb-4">
-                        <label class="block text-gray-400 font-medium mb-2" for="title">Title</label>
-                        <input v-model="newPost.title" type="text" id="title"
-                            class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 bg-gray-700 text-gray-200"
-                            placeholder="Enter your post title" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-400 font-medium mb-2" for="content">Content</label>
-                        <textarea v-model="newPost.content" id="content" rows="6"
-                            class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 bg-gray-700 text-gray-200"
-                            placeholder="Write your post content here..." required></textarea>
-                    </div>
-                    <button type="submit"
-                        class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-200">
-                        Publish Post
-                    </button>
-                </form>
-            </section>
+            <!-- Two-Column Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Column: Post Content Editor -->
+                <section class="bg-gray-800 rounded-lg shadow p-8">
+                    <h2 class="text-3xl font-semibold mb-6 text-rose-400">Create a New Post</h2>
+                    <form @submit.prevent="submitPost">
+                        <div class="mb-4">
+                            <label class="block text-gray-400 font-medium mb-2" for="title">Title</label>
+                            <input v-model="newPost.title" type="text" id="title"
+                                class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 bg-gray-700 text-gray-200"
+                                placeholder="Enter your post title" required />
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-400 font-medium mb-2" for="content">Content</label>
+                            <textarea v-model="newPost.content" id="content" rows="6"
+                                class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 bg-gray-700 text-gray-200"
+                                placeholder="Write your post content here..." required></textarea>
+                        </div>
+                        <!-- Image Upload Section -->
+                        <div class="mb-4">
+                            <label class="block text-gray-400 font-medium mb-2" for="images">Images</label>
+                            <input type="file" id="images" multiple @change="handleImageUpload"
+                                class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-rose-500 file:text-white hover:file:bg-rose-600" />
+                        </div>
+                        <button type="submit"
+                            class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-200">
+                            Publish Post
+                        </button>
+                    </form>
+                </section>
 
-            <!-- Posts List with Filtering and Sorting -->
+                <!-- Right Column: Post Preview and Image List -->
+                <section class="bg-gray-800 rounded-lg shadow p-8">
+                    <h2 class="text-3xl font-semibold mb-6 text-rose-400">Post Preview</h2>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-gray-100 mb-2">{{ newPost.title || 'Your Post Title' }}</h3>
+                        <p class="text-gray-400">{{ newPost.content || 'Your post content will appear here...' }}</p>
+                    </div>
+                    <h2 class="text-3xl font-semibold mb-6 text-rose-400">Image List</h2>
+                    <div class="flex flex-wrap gap-4">
+                        <div v-for="(image, index) in images" :key="index"
+                            class="w-24 h-24 border border-gray-600 rounded-lg overflow-hidden">
+                            <img :src="image" alt="Uploaded image" class="object-cover w-full h-full" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Existing Posts List -->
             <section>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-3xl font-semibold text-rose-400">Recent Posts</h2>
@@ -90,43 +115,48 @@ import { ref, computed } from 'vue';
 definePageMeta({
     layout: 'manage'
 })
+
+// Existing newPost object
 const newPost = ref({
     title: '',
-    content: ''
+    content: '',
 });
 
+// Existing posts array
 const posts = ref([
     { title: 'First Post', content: 'This is my first post content.', date: 'August 31, 2024' },
     { title: 'Second Post', content: 'Here is another exciting post.', date: 'August 30, 2024' },
-    // Add more dummy posts to demonstrate pagination and filtering
     { title: 'Third Post', content: 'Yet another post.', date: 'August 29, 2024' },
     { title: 'Fourth Post', content: 'Keep them coming.', date: 'August 28, 2024' },
     { title: 'Fifth Post', content: 'Blogging is fun!', date: 'August 27, 2024' },
     { title: 'Sixth Post', content: 'Another day, another post.', date: 'August 26, 2024' },
 ]);
 
+// New ref for image uploads
+const images = ref([]);
+
+// Existing functionality for search, sort, and pagination
 const searchQuery = ref('');
 const sortOrder = ref('desc');
 const currentPage = ref(1);
 const postsPerPage = 3;
 
+// Computed values
 const filteredPosts = computed(() => {
     let sortedPosts = posts.value.sort((a, b) => {
         return sortOrder.value === 'asc'
             ? new Date(a.date) - new Date(b.date)
             : new Date(b.date) - new Date(a.date);
     });
-    let filtered = sortedPosts.filter(post =>
+    return sortedPosts.filter(post =>
         post.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         post.content.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-    return filtered.slice((currentPage.value - 1) * postsPerPage, currentPage.value * postsPerPage);
+    ).slice((currentPage.value - 1) * postsPerPage, currentPage.value * postsPerPage);
 });
 
-const totalPages = computed(() => {
-    return Math.ceil(filteredPosts.value.length / postsPerPage);
-});
+const totalPages = computed(() => Math.ceil(filteredPosts.value.length / postsPerPage));
 
+// Existing post submission and navigation methods
 const submitPost = () => {
     if (newPost.value.title && newPost.value.content) {
         posts.value.push({
@@ -136,24 +166,23 @@ const submitPost = () => {
         });
         newPost.value.title = '';
         newPost.value.content = '';
+        images.value = []; // Clear images on submission
     }
 };
 
-const deletePost = (index) => {
-    posts.value.splice(index, 1);
-};
+const deletePost = (index) => posts.value.splice(index, 1);
 
-const previousPage = () => {
-    if (currentPage.value > 1) currentPage.value--;
-};
+const previousPage = () => currentPage.value > 1 && currentPage.value--;
 
-const nextPage = () => {
-    if (currentPage.value < totalPages.value) currentPage.value++;
+const nextPage = () => currentPage.value < totalPages.value && currentPage.value++;
+
+// New method for handling image uploads
+const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files);
+    files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => images.value.push(e.target.result);
+        reader.readAsDataURL(file);
+    });
 };
 </script>
-
-<style scoped>
-body {
-    font-family: 'Inter', sans-serif;
-}
-</style>
